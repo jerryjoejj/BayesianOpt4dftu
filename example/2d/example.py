@@ -67,7 +67,7 @@ def main():
         db = delta_band(bandrange=br, path='./')
         db.deltaBand()
 
-        bayesianOpt = bayesOpt_DFTU(path='./', opt_u_index=which_u, u_range=urange, kappa=k, alpha_1=a1, alpha_2=a2,
+        bayesianOpt = bayesOpt_DFTU(path='./', opt_u_index=which_u, u_range=urange, kappa=k, a1=a1, a2=a2,
                                     elements=elements)
         obj_next = bayesianOpt.bo()
         if abs(obj_next - obj) <= threshold:

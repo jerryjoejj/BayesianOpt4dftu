@@ -3,11 +3,11 @@ import os
 import argparse
 
 # Command to run VASP executable.
-VASP_RUN_COMMAND = 'mpirun -np 56 vasp_ncl'
+VASP_RUN_COMMAND = 'mpirun -np 52 vasp_std'
 # Define the name for output file.
 OUTFILENAME = 'vasp.out'
 # Define the path direct to the VASP pesudopotential.
-VASP_PP_PATH = '/home/maituoy/pp_vasp/'
+VASP_PP_PATH = '/home/gengzi/vasp_pseudopotential'
 
 
 def parse_argument():
@@ -46,7 +46,7 @@ def main():
 
     os.environ['VASP_PP_PATH'] = VASP_PP_PATH
 
-    calculate(command=VASP_RUN_COMMAND, outfilename=OUTFILENAME, method='hse', import_kpath=import_kpath)
+    calculate(command=VASP_RUN_COMMAND, outfilename=OUTFILENAME, method='pbe', import_kpath=import_kpath)
 
     if os.path.exists('u.txt'):
         os.remove('u.txt')
@@ -58,7 +58,7 @@ def main():
         db = delta_band(bandrange=br, path='./')
         db.deltaBand()
 
-        bayesianOpt = bayesOpt_DFTU(path='./', kappa=k, alpha_1=a1, alpha_2=a2)
+        bayesianOpt = bayesOpt_DFTU(path='./', kappa=k, a1=a1, a2=a2)
         obj_next = bayesianOpt.bo(which_u, urange)
         if abs(obj_next - obj) <= threshold:
             print("Optimization has been finished!")
