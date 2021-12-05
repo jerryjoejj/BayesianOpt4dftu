@@ -374,6 +374,7 @@ class get_optimizer:
         return pbounds
 
     def optimizer(self):
+        global target
         pbounds = self.set_bounds()
         optimizer = BayesianOptimization(
             f=None,
